@@ -1,0 +1,71 @@
+pwd
+hostname
+whoami
+ls -ltr
+sudo hostnamectl set-hostname jenkins
+/bin/bash
+sudo apt update -y
+sudo apt install openjdk-17-jre
+java --version
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install fontconfig openjdk-17-jre
+sudo apt-get install jenkins
+
+jenkins --version
+sudo systemctl status jenkins
+
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt-repository --yes --update ppa:ansible/ansible
+$ sudo apt install ansible
+
+cd /etc/ansible
+sudo vi hosts
+[dockerservers]
+13.201.133.226
+
+sudo su --
+su jenkins
+ssh-keygen
+cd .ssh/
+cat id_rsa.pub
+cp id_rsa.pub and paste in root users .ssh/ directory's authorized hosts file.
+systemctl reload sshd
+ssh root@13.201.133.226
+
+###################### Docker VM #########################
+sudo apt update -y
+sudo hostnamectl set-hostname docker
+/bin/bash
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo docker run hello-world
+
+sudo usermod -aG docker ubuntu
+newgrp docker
+
+docker ps
+sudo su -- #To become root
+ssh-keygen
+
+
